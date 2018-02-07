@@ -1,30 +1,38 @@
 <div class="w3-row w3-margin">
-
-<div class="w3-third w3-border">
+<div class="w3-col w3-border w3-center">
 <form>
 <input type="date" class="data"   name="dat" [(ngModel)]="ladata">
 <input type="time" class="orario" name="ora" [(ngModel)]="lora">
 <input type="submit" class="w3-btn w3-small w3-round-large w3-aqua" value="INP" (click)="memo()">
 </form>
 </div>
+</div>
 
-<div class="w3-twothird" >
+<div class="w3-row">
 
-  <span *ngFor="let datatim of datatimb">
-    <div class="w3-quarter w3-border">
-      {{ datatim | date:'fullDate':'':'it' }}
-    </div>
-    <div class="w3-half w3-border">
-  <span *ngFor="let ore of timbrate[datatim]; let i = index" (dblclick)="cancella(datatim, i)">
-    {{ ore }}
-    <span *ngIf="i % 2"> ----> {{ saldopar(datatim, i) | mintomh }}<br /></span>
-  </span>
-  </div>
-  <div class="w3-rest w3-border w3-center">{{ saldotot[datatim] }}</div>
-  </span>
+<table class="w3-table-all">
+      
+  <tr *ngFor="let datatim of datatimb">
+    <td>{{ datatim | date:'fullDate':'':'it' }}</td>
 
-</div><!-- end w3-half -->
+    <td>
+      <span *ngFor="let ore of timbrate[datatim]; let i = index" (dblclick)="cancella(datatim, i)">
+	      {{ i }}){{ ore }}
+        <span *ngIf="i % 2"> ----> {{ saldopar(datatim, i) | mintomh }}<br /></span>
+    </span>
+    </td>
+
+    <td> {{ saldotot(datatim) }} </td>
+
+  </tr>
+
+</table>
 
 </div><!-- end w3-row -->
 
+<div class="w3-row">
+  <div class="w3-col w3-border">
+    {{ visutotgio() }}
+  </div>
+</div>
 

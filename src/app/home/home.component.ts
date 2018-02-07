@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit {
   ladata = this.adesso.substr(0,10); 
   lora   = this.adesso.substr(11,5);
   datatimb = [ ];
-  saldotot = [ ];
   timbrate = { };
 
   constructor(private _data: DataService) { }
@@ -33,18 +32,31 @@ export class HomeComponent implements OnInit {
       oratmp.sort();
     }
   }
-    this.timbrate[this.ladata] = oratmp;
-    this.datatimb = Object.keys(this.timbrate).sort();
+  this.timbrate[this.ladata] = oratmp;
+  this.datatimb = Object.keys(this.timbrate).sort();
   }
-  
+
+  visutotgio() {
+    return JSON.stringify(this.timbrate); 
+  }
+
   saldopar(d, i) {
     var ent = this.timbrate[d][i-1];
     var usc = this.timbrate[d][i];
     var mme = parseInt(ent.substr(0,2))*60+parseInt(ent.substr(3,2));
     var mmu = parseInt(usc.substr(0,2))*60+parseInt(usc.substr(3,2));
-    if (this.saldotot.indexOf(d) === -1) { this.saldotot[d] = 0; }
-    this.saldotot[d] += (mmu - mme); 
     return mmu - mme;
+  }
+
+  saldotot(d) {
+    var tmp = this.timbrate[d];
+    var l = tmp.length;
+    if (l % 2 === 1) { l--; }
+    var tot = 0;
+    for (var i = 2; i <= l; i = i + 2) {
+    } 
+
+    return JSON.stringify(l); 
   }
 
   cancella(d, i) {
