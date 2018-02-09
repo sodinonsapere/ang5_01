@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit {
   ladata = this.adesso.substr(0,10); 
   lora   = this.adesso.substr(11,5);
   saldozero = ["ferie", "festivo"];
-  datatimb = [ ];
   teoriche = [ 0, 540, 540, 360, 360, 360, 0 ];
   timbrate = {
   "2018-01-01":["festivo"],
@@ -50,6 +49,7 @@ export class HomeComponent implements OnInit {
   "2018-01-30":["07:50","13:44","13:54","16:20"],
   "2018-01-31":["07:44","13:01"]
   };
+  datatimb = Object.keys(this.timbrate).sort();
 
   constructor(private _data: DataService) { }
 
@@ -61,11 +61,12 @@ export class HomeComponent implements OnInit {
   if (oratmp == undefined) { 
     oratmp = [this.lora];
   } else {
-    if (oratmp.indexOf(this.lora) === -1) {
+    if (oratmp.indexOf(this.lora) === -1 && this.saldozero.indexOf(oratmp[0]) === -1) {
       oratmp.push(this.lora); 
       oratmp.sort();
     }
   }
+
   this.timbrate[this.ladata] = oratmp;
   this.datatimb = Object.keys(this.timbrate).sort();
 
@@ -77,7 +78,6 @@ export class HomeComponent implements OnInit {
     var mme = parseInt(ent.substr(0,2))*60+parseInt(ent.substr(3,2));
     if (mme < 465) { mme = 465; }
     var mmu = parseInt(usc.substr(0,2))*60+parseInt(usc.substr(3,2));
-    
     return mmu - mme;
   }
 
@@ -101,7 +101,22 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  cancella(d, i) {
+  visuteo(d) { 
+    var tmpd = new Date(d);
+    var gs = tmpd.getDay();
+    if (this.saldozero.indexOf(this.timbrate[d][0]) === -1) { 
+      return this.teoriche[gs];
+    } else {
+      return 0;
+    }
+  }
+
+  giocanc(d) {
+    delete this.timbrate[d];
+    this.datatimb = Object.keys(this.timbrate).sort();
+  }
+
+  timbcanc(d, i) {
     var tmp = this.timbrate[d];
     tmp.splice(i, 1);
     this.timbrate[d] = tmp;

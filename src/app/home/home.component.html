@@ -11,18 +11,25 @@
 <div class="w3-row">
 
 <table class="w3-table-all">
-  <tr><th>Data</th><th>Timb.originali</th><th>tot.giorno</th><th>saldo gio.</th></tr>    
+  <tr>
+    <th>Data</th>
+    <th>Timb.originali</th>
+    <th>tot.giorno</th>
+    <th>teoriche</th>
+    <th>saldo gio.</th>
+  </tr>    
   <tr *ngFor="let datatim of datatimb">
     <td>{{ datatim | date:'EEE dd/LL/yy':'':'it' }}</td>
 
     <td>
-      <span *ngFor="let ore of timbrate[datatim]; let i = index" (dblclick)="cancella(datatim, i)">
+      <span *ngFor="let ore of timbrate[datatim]; let i = index">
 	      {{ ore }}
-        <span *ngIf="i % 2"> -> {{ saldopar(datatim, i) | mintomh }}<br /></span>
+        <span *ngIf="i % 2"> --> {{ saldopar(datatim, i) | mintomh }}<br /></span>
     </span>
     </td>
 
     <td>{{ saldotot(datatim) | mintomh }}</td>
+    <td>{{ visuteo(datatim)  | mintomh }}</td> 
     <td>{{ saldogio(datatim) | mintomh }}</td>
 
   </tr>
@@ -31,9 +38,4 @@
 
 </div><!-- end w3-row -->
 
-<div class="w3-row">
-  <div class="w3-col w3-border">
-    
-  </div>
-</div>
 

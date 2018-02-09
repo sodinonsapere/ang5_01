@@ -6,7 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class MintomhPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
-
     var hh = Math.floor(Math.abs(value) / 60);
     var mm = Math.floor(Math.abs(value) - hh * 60);
     var ss = (Math.sign(value) === -1) ? '-' : '';;
