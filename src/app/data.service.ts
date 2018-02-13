@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class DataService {
 
-  private goals = new BehaviorSubject<any>(['The initial goal', 'Another silly life goal']);
-  goal = this.goals.asObservable();
+  private url = "https://monitor.unich.it/ws/angular.php";
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  changeGoal(goal) {
-    this.goals.next(goal);
+  getTimbrate(): Observable<any> {
+    return this.http.get<any>(this.url);
   }
 
 }

@@ -1,6 +1,10 @@
 <div class="w3-row w3-margin">
 <div class="w3-col w3-border w3-center">
 <form>
+<select name="gius" [(ngModel)]="giustif" (ngModelChange)="giustificativo()">
+<option [value]="nogius">nessun giustificativo</option>
+<option *ngFor="let opt of saldozero" [value]="opt">{{ opt }}</option>
+</select>
 <input type="date" class="data"   name="dat" [(ngModel)]="ladata">
 <input type="time" class="orario" name="ora" [(ngModel)]="lora">
 <input type="submit" class="w3-btn w3-small w3-round-large w3-aqua" value="INP" (click)="memo()">
@@ -19,10 +23,12 @@
     <th>saldo gio.</th>
   </tr>    
   <tr *ngFor="let datatim of datatimb">
-    <td>{{ datatim | date:'EEE dd/LL/yy':'':'it' }}</td>
+    <td>
+      {{ datatim | date:'EEE dd/LL/yy':'':'it' }}
+    </td>
 
     <td>
-      <span *ngFor="let ore of timbrate[datatim]; let i = index">
+      <span *ngFor="let ore of timbrate[datatim]; let i = index" (click)="timbcanc(datatim, ore, $event)">
 	      {{ ore }}
         <span *ngIf="i % 2"> --> {{ saldopar(datatim, i) | mintomh }}<br /></span>
     </span>
